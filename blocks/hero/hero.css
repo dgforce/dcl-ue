@@ -1,86 +1,75 @@
+/*
+ * DCL standard hero: a full-bleed photo banner with a curved bottom edge,
+ * followed by the centered title + intro (the source "title section").
+ */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
 }
 
 .hero {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
-  min-height: 420px;
-  padding: 48px 16px 80px;
-  color: #fff;
-
-  /* curved bottom edge, as on the DCL standard hero */
-  clip-path: ellipse(150% 100% at 50% 0);
+  padding: 0;
 }
 
-/* scrim keeps overlaid copy readable on bright beach imagery */
-.hero::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(90deg, rgb(37 59 86 / 60%) 0%, rgb(37 59 86 / 0%) 70%);
+/* photo row; the drop shadow follows the clipped curve */
+.hero > div:has(picture) {
+  filter: drop-shadow(0 6px 6px rgb(37 59 86 / 18%));
 }
 
-.hero > div {
+.hero picture {
+  display: block;
+  clip-path: ellipse(90% 100% at 50% 0);
+}
+
+.hero img {
+  display: block;
   width: 100%;
-  max-width: var(--content-max-width);
-  margin: 0 auto;
+  height: 240px;
+  object-fit: cover;
 }
 
-.hero h1,
-.hero h2,
+/* copy row */
+.hero > div:not(:has(picture)) {
+  box-sizing: border-box;
+  max-width: var(--text-max-width);
+  margin: 40px auto 0;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.hero :is(h1, h2) {
+  margin: 0 0 8px;
+  font-size: var(--heading-font-size-xl);
+}
+
 .hero p {
-  max-width: 640px;
-  color: #fff;
-  text-shadow: 0 1px 4px rgb(0 0 0 / 30%);
-}
-
-.hero h1 {
-  margin-top: 0;
-}
-
-.hero p {
+  margin: 0;
   font-size: 18px;
   line-height: 1.5;
 }
 
+.hero p + p {
+  margin-top: 8px;
+}
+
 .hero p.button-wrapper {
-  text-shadow: none;
-}
-
-.hero picture {
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
-}
-
-.hero img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+  margin-top: 24px;
 }
 
 @media (width >= 768px) {
-  .hero {
-    min-height: 480px;
-    padding: 64px 32px 112px;
-    clip-path: ellipse(120% 100% at 50% 0);
+  .hero picture {
+    clip-path: ellipse(75% 100% at 50% 0);
+  }
+
+  .hero img {
+    height: clamp(320px, 30vw, 480px);
+  }
+
+  .hero > div:not(:has(picture)) {
+    margin-top: 56px;
   }
 
   .hero p {
     font-size: 20px;
-  }
-}
-
-@media (width >= 1024px) {
-  .hero {
-    min-height: 560px;
   }
 }

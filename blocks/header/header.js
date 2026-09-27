@@ -142,6 +142,19 @@ export default async function decorate(block) {
     brandLink.closest('.button-wrapper').className = '';
   }
 
+  // an authored logo image becomes the content of the brand link;
+  // the link text is kept as the accessible name
+  const brandPicture = navBrand?.querySelector('picture');
+  const brandAnchor = navBrand?.querySelector('a');
+  if (brandPicture && brandAnchor) {
+    const pictureWrapper = brandPicture.parentElement;
+    brandAnchor.setAttribute('aria-label', brandAnchor.textContent.trim());
+    brandPicture.querySelector('img')?.setAttribute('alt', '');
+    brandAnchor.replaceChildren(brandPicture);
+    if (pictureWrapper !== brandAnchor && !pictureWrapper.children.length) pictureWrapper.remove();
+    navBrand.classList.add('nav-brand-logo');
+  }
+
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
