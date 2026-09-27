@@ -468,6 +468,7 @@ header nav .nav-subnav .default-content-wrapper {
 
 header nav .nav-subnav .default-content-wrapper > ul {
   display: flex;
+  align-self: stretch;
   gap: 24px;
   margin: 0;
   padding: 0;
@@ -475,6 +476,25 @@ header nav .nav-subnav .default-content-wrapper > ul {
   overflow-x: auto;
   white-space: nowrap;
   scrollbar-width: none;
+}
+
+header nav .nav-subnav .default-content-wrapper > ul > li > a:any-link:not(.button) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* in-page link for the section in view (set by the header scroll-spy) */
+header nav .nav-subnav .default-content-wrapper > ul > li > a[aria-current='true']::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  border-radius: 4px 4px 0 0;
+  background-color: var(--link-color);
 }
 
 header nav .nav-subnav p.button-wrapper {

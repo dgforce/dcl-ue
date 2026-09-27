@@ -120,6 +120,32 @@ header {
   height: var(--nav-height);
 }
 
+/* desktop: the utility + brand rows scroll away, the sub-nav bar stays pinned */
+@media (width >= 900px) {
+  header {
+    position: sticky;
+    top: calc(-1 * (var(--nav-utility-height) + var(--nav-row-height)));
+    z-index: 2;
+  }
+}
+
+/* in-page anchors land below the header (fixed on mobile, pinned sub-nav on desktop) */
+main > .section[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
+@media (width >= 900px) {
+  main > .section[id] {
+    scroll-margin-top: var(--nav-subnav-height);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 header .header,
 footer .footer {
   visibility: hidden;

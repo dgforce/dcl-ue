@@ -109,6 +109,48 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
+ * Turns in-page links (#anchor) in the sub-nav into a scroll-spy: the link for the
+ * section currently under the header is marked with aria-current.
+ * @param {Element} nav The nav element
+ * @param {Element} header The header element, whose bottom edge is the reading line
+ */
+function decorateAnchorNav(nav, header) {
+  const links = [...nav.querySelectorAll('.nav-subnav a[href^="#"]')]
+    .filter((a) => a.getAttribute('href').length > 1);
+  if (!links.length) return;
+
+  const update = () => {
+    const line = header.getBoundingClientRect().bottom + 8;
+    let current = null;
+    links.forEach((link) => {
+      const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+      if (target && target.getBoundingClientRect().top <= line) current = link;
+    });
+    links.forEach((link) => {
+      if (link === current) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  };
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => { update(); ticking = false; });
+  }, { passive: true });
+  window.addEventListener('resize', update);
+
+  // on mobile the links live in the drawer: close it once a section is chosen
+  links.forEach((link) => link.addEventListener('click', () => {
+    if (!isDesktop.matches && nav.getAttribute('aria-expanded') === 'true') {
+      toggleMenu(nav, nav.querySelector('.nav-sections'), false);
+    }
+  }));
+
+  update();
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -192,4 +234,5 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+  decorateAnchorNav(nav, block.closest('header') || block);
 }

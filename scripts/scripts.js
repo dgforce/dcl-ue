@@ -110,6 +110,18 @@ export function decorateButtons(main) {
 }
 
 /**
+ * Gives sections an id from their authored "Anchor ID" (section metadata "anchor"),
+ * so in-page links such as #whatsincluded can target them.
+ * @param {Element} main The main container element
+ */
+function decorateSectionAnchors(main) {
+  main.querySelectorAll(':scope > .section[data-anchor]').forEach((section) => {
+    const id = section.dataset.anchor.trim().replace(/^#/, '');
+    if (id && !document.getElementById(id)) section.id = id;
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -118,6 +130,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionAnchors(main);
   decorateBlocks(main);
   decorateButtons(main);
 }
