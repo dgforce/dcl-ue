@@ -150,6 +150,22 @@
     ]
   },
   {
+    "id": "cards",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Straight Edge",
+            "value": "straight-edge"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {

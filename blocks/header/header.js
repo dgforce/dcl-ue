@@ -126,14 +126,15 @@ export default async function decorate(block) {
   nav.setAttribute('aria-label', 'Main');
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  // brand is the first section and tools the last; the menu section between them
-  // is optional, so a two-section nav (brand + tools) renders without a menu
-  const [brandSection, ...rest] = nav.children;
-  const toolsSection = rest.length ? rest[rest.length - 1] : null;
-  const menuSection = rest.length > 1 ? rest[0] : null;
-  brandSection?.classList.add('nav-brand');
-  menuSection?.classList.add('nav-sections');
-  toolsSection?.classList.add('nav-tools');
+  // nav sections, in authoring order: brand, menu, tools, utility bar, sub-nav bar.
+  // A two-section nav is brand + tools; utility and sub-nav are optional extras.
+  const navChildren = [...nav.children];
+  const roles = navChildren.length <= 2
+    ? ['brand', 'tools']
+    : ['brand', 'sections', 'tools', 'utility', 'subnav'];
+  navChildren.forEach((section, i) => {
+    if (roles[i]) section.classList.add(`nav-${roles[i]}`);
+  });
 
   const navBrand = nav.querySelector('.nav-brand');
   const brandLink = navBrand?.querySelector('.button');
@@ -185,6 +186,7 @@ export default async function decorate(block) {
   } else {
     nav.classList.add('nav-no-menu');
   }
+  if (nav.querySelector('.nav-utility, .nav-subnav')) nav.classList.add('nav-full');
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';

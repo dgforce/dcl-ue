@@ -63,8 +63,18 @@
   --content-max-width: 1200px;
   --text-max-width: 860px;
 
-  /* nav height */
-  --nav-height: 64px;
+  /* nav: brand row + sub-nav bar on mobile; utility bar is added on desktop */
+  --nav-row-height: 64px;
+  --nav-subnav-height: 56px;
+  --nav-utility-height: 0px;
+  --nav-height: calc(var(--nav-utility-height) + var(--nav-row-height) + var(--nav-subnav-height));
+}
+
+@media (width >= 900px) {
+  :root {
+    --nav-row-height: 56px;
+    --nav-utility-height: 32px;
+  }
 }
 
 /* fallback font */
