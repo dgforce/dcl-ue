@@ -1,20 +1,184 @@
+/*
+ * DCL footer. Authored as a fragment page (/footer) with sections in order:
+ * contact copy, link columns (Columns block), social links,
+ * related sites (section style "Highlight"), legal links + copyright.
+ */
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: var(--body-font-size-s);
+  line-height: 1.5;
 }
 
 footer .footer > div {
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  max-width: 1000px;
+  padding: 0 16px 32px;
+}
+
+footer .footer .section {
+  margin: 0;
+  padding: 32px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+footer .footer .section > div {
+  max-width: none;
+  padding: 0;
 }
 
 footer .footer p {
-  margin: 0;
+  margin: 0 0 8px;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+footer .footer :is(h2, h3, h4, h5, h6) {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+footer .footer a:any-link {
+  color: var(--text-color);
+}
+
+footer .footer a:hover {
+  color: var(--link-hover-color);
+}
+
+/* default content (contact copy, legal row) is centered */
+footer .footer .default-content-wrapper {
+  max-width: none;
+  text-align: center;
+}
+
+footer .footer .default-content-wrapper p a:any-link {
+  color: var(--link-color);
+}
+
+footer .footer .default-content-wrapper em {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted-text-color);
+  font-size: var(--body-font-size-xs);
+  font-style: normal;
+}
+
+/* link lists */
+footer .footer ul {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  font-size: 13px;
+}
+
+footer .footer li {
+  margin: 0 0 6px;
+}
+
+/* link groups authored as heading + list pairs flow into newspaper columns */
+footer .footer .section:not(:first-child, :last-child) .default-content-wrapper {
+  columns: 2;
+  column-gap: 24px;
+  text-align: left;
+}
+
+footer .footer .section:not(:first-child, :last-child) .default-content-wrapper > :is(h2, h3, h4, h5, h6) {
+  break-after: avoid;
+}
+
+footer .footer .section:not(:first-child, :last-child) .default-content-wrapper > ul {
+  break-inside: avoid;
+}
+
+/* a panel title (e.g. "Related Disney Sites") spans all columns */
+footer .footer .section.highlight .default-content-wrapper > :is(h2, h3, h4, h5, h6):first-child {
+  column-span: all;
+}
+
+footer .footer .section.highlight .default-content-wrapper > ul {
+  break-inside: auto;
+}
+
+@media (width >= 768px) {
+  footer .footer .section:not(:first-child, :last-child) .default-content-wrapper {
+    columns: 4;
   }
+}
+
+/* link columns block: stack on mobile, four across on desktop */
+footer .footer .columns > div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 24px;
+  text-align: left;
+}
+
+footer .footer .columns > div + div {
+  margin-top: 16px;
+}
+
+footer .footer .columns > div > div {
+  font-size: 13px;
+}
+
+footer .footer .columns :is(h2, h3, h4, h5, h6) {
+  margin: 16px 0 6px;
+  font-size: 14px;
+}
+
+footer .footer .columns > div > div > :first-child {
+  margin-top: 0;
+}
+
+@media (width >= 768px) {
+  footer .footer .columns > div {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* related Disney sites panel */
+footer .footer .section.highlight,
+footer .footer .section.sky {
+  margin: 16px 0;
+  padding: 24px 16px;
+  border-top: 0;
+  border-radius: var(--radius-m);
+  background: var(--dcl-sky);
+}
+
+footer .footer .section.highlight + .section {
+  border-top: 0;
+}
+
+footer .footer .section.highlight .default-content-wrapper {
+  text-align: left;
+}
+
+footer .footer .section.highlight .default-content-wrapper p a:any-link {
+  color: var(--text-color);
+}
+
+@media (width >= 768px) {
+  footer .footer > div {
+    padding: 0 32px 40px;
+  }
+
+  footer .footer .section.highlight,
+  footer .footer .section.sky {
+    padding: 24px 32px;
+  }
+}
+
+/* legal row: links inline, then copyright */
+footer .footer .section:last-child .default-content-wrapper {
+  font-size: var(--body-font-size-xs);
+}
+
+footer .footer .section:last-child .default-content-wrapper > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 16px;
+  font-size: var(--body-font-size-xs);
 }

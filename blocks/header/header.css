@@ -1,6 +1,8 @@
 /* header and nav layout */
 header .nav-wrapper {
   background-color: var(--background-color);
+  box-shadow: 0 2px 8px rgb(37 59 86 / 8%);
+  color: var(--text-color);
   width: 100%;
   z-index: 2;
   position: fixed;
@@ -28,6 +30,11 @@ header nav[aria-expanded='true'] {
     'tools tools' var(--nav-height) / auto 1fr;
   overflow-y: auto;
   min-height: 100dvh;
+}
+
+/* brand + tools only, no menu */
+header nav.nav-no-menu {
+  grid-template: 'brand tools' var(--nav-height) / 1fr auto;
 }
 
 @media (width >= 900px) {
@@ -139,18 +146,34 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   }
 }
 
-/* brand */
+/* brand: an authored logo image, or a text wordmark as fallback */
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 500;
   line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+header nav .nav-brand a:any-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+  display: block;
+  width: auto;
+  height: 32px;
+}
+
+@media (width >= 900px) {
+  header .nav-brand {
+    font-size: 24px;
+  }
 }
 
 /* sections */
@@ -266,7 +289,40 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* tools */
+/* tools: utility links and the Book Now CTA */
 header nav .nav-tools {
   grid-area: tools;
+  font-size: var(--body-font-size-s);
+}
+
+header nav .nav-tools .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+header nav .nav-tools a:any-link:not(.button) {
+  color: var(--text-color);
+}
+
+header nav .nav-tools a:hover:not(.button) {
+  color: var(--link-hover-color);
+}
+
+header nav .nav-tools p.button-wrapper {
+  margin: 0;
+}
+
+header nav .nav-tools a.button:any-link {
+  min-width: 0;
+  min-height: 36px;
+  padding: 6px 20px;
+  font-size: 14px;
+}
+
+/* keep only the CTA on small screens */
+@media (width < 600px) {
+  header nav .nav-tools .default-content-wrapper > :not(.button-wrapper) {
+    display: none;
+  }
 }
