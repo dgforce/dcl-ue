@@ -1,6 +1,12 @@
+/* DCL highlight copy: image beside a text column, alternating per row */
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: 16px;
+}
+
+.columns > div + div {
+  margin-top: 48px;
 }
 
 .columns img {
@@ -17,17 +23,48 @@
 
 .columns > div > .columns-img-col img {
   display: block;
+  border-radius: var(--radius-m);
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
 }
 
-@media (width >= 900px) {
+.columns > div > div:not(.columns-img-col) {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.columns > div > div:not(.columns-img-col) > :first-child {
+  margin-top: 0;
+}
+
+.columns :is(h2, h3, h4) {
+  margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+@media (width >= 768px) {
   .columns > div {
     align-items: center;
     flex-direction: unset;
-    gap: 24px;
+    gap: 40px;
+  }
+
+  .columns > div + div {
+    margin-top: 64px;
   }
 
   .columns > div > div {
-    flex: 1;
+    flex: 2;
     order: unset;
+  }
+
+  .columns > div > .columns-img-col {
+    flex: 3;
+  }
+
+  .columns :is(h2, h3, h4) {
+    font-size: 28px;
   }
 }

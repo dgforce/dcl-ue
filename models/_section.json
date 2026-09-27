@@ -33,6 +33,14 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Sand Background",
+              "value": "sand"
+            },
+            {
+              "name": "Sky Gradient",
+              "value": "sky"
             }
           ]
         }

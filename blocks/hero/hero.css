@@ -5,20 +5,57 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 420px;
+  padding: 48px 16px 80px;
+  color: #fff;
+
+  /* curved bottom edge, as on the DCL standard hero */
+  clip-path: ellipse(150% 100% at 50% 0);
+}
+
+/* scrim keeps overlaid copy readable on bright beach imagery */
+.hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(37 59 86 / 60%) 0%, rgb(37 59 86 / 0%) 70%);
+}
+
+.hero > div {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.hero h1,
+.hero h2,
+.hero p {
+  max-width: 640px;
+  color: #fff;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 30%);
 }
 
 .hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+  margin-top: 0;
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.hero p.button-wrapper {
+  text-shadow: none;
 }
 
 .hero picture {
   position: absolute;
-  z-index: -1;
+  z-index: -2;
   inset: 0;
   object-fit: cover;
   box-sizing: border-box;
@@ -30,8 +67,20 @@
   height: 100%;
 }
 
-@media (width >= 900px) {
+@media (width >= 768px) {
   .hero {
-    padding: 40px 32px;
+    min-height: 480px;
+    padding: 64px 32px 112px;
+    clip-path: ellipse(120% 100% at 50% 0);
+  }
+
+  .hero p {
+    font-size: 20px;
+  }
+}
+
+@media (width >= 1024px) {
+  .hero {
+    min-height: 560px;
   }
 }
