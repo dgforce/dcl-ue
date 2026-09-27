@@ -341,6 +341,26 @@ main > .section > .default-content-wrapper p {
   line-height: 1.5;
 }
 
+/* breathing room between a section's title/intro and the block that follows */
+main > .section > .default-content-wrapper + div {
+  margin-top: 40px;
+}
+
+/* optional decorative icon above a section title (e.g. the hibiscus) */
+main > .section > .default-content-wrapper > p:first-child:has(> picture:only-child) {
+  margin: 0 0 16px;
+  line-height: 0;
+}
+
+main > .section > .default-content-wrapper > p:first-child:has(> picture:only-child) img {
+  width: auto;
+  height: 44px;
+}
+
+main > .section > .default-content-wrapper > p:first-child:has(> picture:only-child) + :is(h1, h2, h3) {
+  margin-top: 0;
+}
+
 /* section metadata styles */
 main .section.light,
 main .section.highlight,

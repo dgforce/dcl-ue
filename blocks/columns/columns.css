@@ -44,6 +44,27 @@
   line-height: 1.35;
 }
 
+/* brand logo leading a text column (e.g. Lookout Cay, Castaway Cay) */
+.columns > div > div:not(.columns-img-col) img {
+  display: block;
+  width: auto;
+  max-width: 220px;
+  max-height: 120px;
+  margin-bottom: 24px;
+}
+
+/* the logo stands in for the heading, which stays for screen readers and SEO */
+.columns > div > div:not(.columns-img-col) :is(p:has(> picture:only-child), picture) + :is(h2, h3, h4) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 @media (width >= 768px) {
   .columns > div {
     align-items: center;
@@ -56,12 +77,12 @@
   }
 
   .columns > div > div {
-    flex: 2;
+    flex: 1;
     order: unset;
   }
 
   .columns > div > .columns-img-col {
-    flex: 3;
+    flex: 2;
   }
 
   .columns :is(h2, h3, h4) {
